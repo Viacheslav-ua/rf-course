@@ -1,12 +1,12 @@
 import '../styles/app.css'
 
-const PostItem = () => {
-
+const PostItem = ({post}) => {
+  
   return (
   <div className="post">
     <div className="post__content">
-      <strong>1. Javascript</strong>
-      <div>JavaScript - programming language</div>
+        <strong>{ post.id}. { post.title }</strong>
+        <div>{ post.content }</div>
     </div>
     <div className="post__btn">
       <button>delete</button>
