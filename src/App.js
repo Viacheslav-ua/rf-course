@@ -13,25 +13,22 @@ function App() {
 
   const bodyInputRef = useRef()
 
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  // const [title, setTitle] = useState('')
+  // const [content, setContent] = useState('')
+  const [post, setPost] = useState({ title: '', content: '' })
 
 
   const addNewPost = (e) => {
     e.preventDefault();
 
-    const newPost = {
-      id: Date.now(),
-      title,
-      content,
-    }
-
-    setPosts([...posts, newPost])
+    setPosts([
+      ...posts,
+      { id: Date.now(), ...post, },
+    ])
     // console.log(newPost);
     // console.log(bodyInputRef.current.value);
 
-    setTitle('')
-    setContent('')
+    setPost({ title: '', content: '' })
   }
 
   return (
@@ -40,8 +37,8 @@ function App() {
         <MyInput
           type="text"
           placeholder="Post title"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
+          value={post.title}
+          onChange={e => setPost({ ...post, title: e.target.value })}
         />
 
         {/* <MyInput
@@ -53,8 +50,8 @@ function App() {
         <MyInput
           type="text"
           placeholder="Post content"
-          value={content}
-          onChange={e => setContent(e.target.value)}
+          value={post.content}
+          onChange={e => setPost({ ...post, content: e.target.value })}
         />
         <MyButton onClick={addNewPost}>Create</MyButton>
       </form>
