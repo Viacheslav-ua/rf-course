@@ -1,11 +1,11 @@
 import '../styles/app.css'
 
-const PostItem = ({post}) => {
+const PostItem = ({post, number}) => {
   
   return (
   <div className="post">
-    <div className="post__content">
-        <strong>{ post.id}. { post.title }</strong>
+      <div className="post__content">
+        <strong>{ number }. { post.title }</strong>
         <div>{ post.content }</div>
     </div>
     <div className="post__btn">
