@@ -17,6 +17,10 @@ function App() {
     ])
   }
 
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  }
+
 
 
   return (
@@ -24,7 +28,12 @@ function App() {
       <PostForm create={createPost} />
       <Counter />
       <ClassCounter />
-      <PostList posts={posts} title={'List of posts'} />
+
+      {posts.length !== 0
+        ? <PostList remove={removePost} posts={posts} title={'List of posts'} />
+        : <div>posts not found</div>
+      }
+
     </div>
 
   );

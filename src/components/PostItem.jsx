@@ -1,6 +1,7 @@
 import '../styles/app.css'
+import MyButton from './UA/button/MyButton';
 
-const PostItem = ({post, number}) => {
+const PostItem = ({post, number, remove}) => {
   
   return (
   <div className="post">
@@ -9,7 +10,7 @@ const PostItem = ({post, number}) => {
         <div>{ post.content }</div>
     </div>
     <div className="post__btn">
-      <button>delete</button>
+      <MyButton onClick={() => remove(post)} >delete</MyButton>
     </div>
     </div>
   );
