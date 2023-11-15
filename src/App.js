@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UA/select/MySelect";
+import MyInput from "./components/UA/input/MyInput";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -12,6 +13,19 @@ function App() {
   ])
 
   const [selectedSort, setSelectedSort] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const sortedPosts = useMemo(() => {
+    console.log('worked sortedPosts');
+    if (selectedSort) {
+      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+    }
+    return posts
+  }, [selectedSort, posts])
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(p => p.title.toUpperCase().includes(searchQuery.toUpperCase()))
+  }, [sortedPosts, searchQuery])
 
   const createPost = (newPost) => {
     setPosts([
@@ -25,8 +39,7 @@ function App() {
   }
 
   const sortPosts = (sort) => {
-    console.log(sort);
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
+    setSelectedSort(sort)
   }
 
 
@@ -39,6 +52,13 @@ function App() {
 
       <div>
         <hr style={{ margin: '15px 8px' }} />
+
+        <MyInput
+          placeholder="find"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
+
         <MySelect
           defaultValue="Order by"
           value={selectedSort}
@@ -50,8 +70,8 @@ function App() {
         />
       </div>
 
-      {posts.length !== 0
-        ? <PostList remove={removePost} posts={posts} title={'List of posts'} />
+      {sortedAndSearchedPosts.length !== 0
+        ? <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
         : <div><h1 style={{ textAlign: 'center', color: 'tomato' }}>posts not found</h1></div>
       }
 
