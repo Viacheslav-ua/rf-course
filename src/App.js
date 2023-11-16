@@ -6,28 +6,16 @@ import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UA/MyModal/MyModal";
 import PostForm from "./components/PostForm";
 import MyButton from "./components/UA/button/MyButton";
+import { usePost } from "./hooks/usePosts";
 
 function App() {
   const [posts, setPosts] = useState([
     { id: 1, title: 'JavaScript', content: 'Programming language' },
     { id: 2, title: 'Postgres', content: 'Data base' },
   ])
-
   const [modal, setModal] = useState(false)
-
   const [filter, setFilter] = useState({ sort: '', query: '' })
-
-  const sortedPosts = useMemo(() => {
-    console.log('worked sortedPosts');
-    if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-    }
-    return posts
-  }, [filter.sort, posts])
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(p => p.title.toUpperCase().includes(filter.query.toUpperCase()))
-  }, [sortedPosts, filter.query])
+  const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
   const createPost = (newPost) => {
     setPosts([
