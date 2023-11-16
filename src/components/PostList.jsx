@@ -1,6 +1,14 @@
 import PostItem from "./PostItem";
 
-function PostList({posts, title, remove}) {
+function PostList({ posts, title, remove }) {
+  
+    if (!posts.length) {
+    return (
+      <div>
+        <h1 style={{ textAlign: 'center', color: 'tomato' }}>Posts not found</h1>
+      </div>
+    )
+  }
 
   return (
     <div>
