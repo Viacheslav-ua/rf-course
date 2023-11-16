@@ -2,10 +2,10 @@ import React, { useMemo, useState } from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 import PostList from "./components/PostList";
-import PostForm from "./components/PostForm";
-import MySelect from "./components/UA/select/MySelect";
-import MyInput from "./components/UA/input/MyInput";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UA/MyModal/MyModal";
+import PostForm from "./components/PostForm";
+import MyButton from "./components/UA/button/MyButton";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -13,8 +13,7 @@ function App() {
     { id: 2, title: 'Postgres', content: 'Data base' },
   ])
 
-  // const [selectedSort, setSelectedSort] = useState('')
-  // const [searchQuery, setSearchQuery] = useState('')
+  const [modal, setModal] = useState(false)
 
   const [filter, setFilter] = useState({ sort: '', query: '' })
 
@@ -35,6 +34,7 @@ function App() {
       ...posts,
       newPost,
     ])
+    setModal(false)
   }
 
   const removePost = (post) => {
@@ -44,7 +44,14 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
+      <MyButton style={{ marginTop: 30 }} onClick={() => setModal(true)}>
+        Create post
+      </MyButton>
+
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
+
       <Counter />
       <ClassCounter />
 
