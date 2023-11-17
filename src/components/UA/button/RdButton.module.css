@@ -1,0 +1,13 @@
+.rdBtn {
+  padding: 10px 15px;
+  color: rgb(99, 25, 12);
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid rgb(26, 3, 94);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.red {
+  border-color: red;
+}

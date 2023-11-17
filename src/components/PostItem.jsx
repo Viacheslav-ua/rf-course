@@ -7,7 +7,7 @@ const PostItem = ({post, number, remove}) => {
   <div className="post">
       <div className="post__content">
         <strong>{ number }. { post.title }</strong>
-        <div>{ post.content }</div>
+        <div>{ post.body }</div>
     </div>
     <div className="post__btn">
       <MyButton onClick={() => remove(post)} >delete</MyButton>
