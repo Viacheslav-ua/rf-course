@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 import PostList from "./components/PostList";
@@ -15,6 +15,11 @@ function App() {
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState({ sort: '', query: '' })
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
+
+  useEffect(() => {
+    console.log('UseEffect work');
+    fetchPosts()
+  }, [])
 
   const createPost = (newPost) => {
     setPosts([
