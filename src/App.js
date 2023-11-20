@@ -8,7 +8,8 @@ import PostForm from "./components/PostForm";
 import MyButton from "./components/UA/button/MyButton";
 import { usePost } from "./hooks/usePosts";
 import RdButton from "./components/UA/button/RdButton";
-import axios from "axios";
+import PostService from "./API/postService";
+
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -34,7 +35,7 @@ function App() {
   }
 
   async function fetchPosts() {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    const response = await PostService.getAll()
     setPosts([...response.data])
   }
 
@@ -45,7 +46,7 @@ function App() {
         Create post
       </MyButton>
 
-      <RdButton onClick={fetchPosts}>Get Posts</RdButton>
+      <RdButton>Get Posts</RdButton>
 
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
