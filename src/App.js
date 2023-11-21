@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Counter from "./components/Counter";
 import ClassCounter from "./components/ClassCounter";
 import PostList from "./components/PostList";
@@ -11,18 +11,34 @@ import RdButton from "./components/UA/button/RdButton";
 import PostService from "./API/postService";
 import Loader from "./components/UA/loader/loader.";
 import { useFetching } from "./hooks/useFetching";
+import { getPageCount } from "./utils/pages";
+import { usePagination } from "./hooks/usePagination";
 
 
 function App() {
   const [posts, setPosts] = useState([])
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState({ sort: '', query: '' })
+  const [totalPage, setTotalPage] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+
+  const pagesArray = usePagination(totalPage)
+
+  // let pagesArray = useMemo(() => {
+  //   const arr = usedPagination(totalPage)
+  //   console.log(arr);
+  //   return arr
+  // }, [totalPage])
+
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    const posts = await PostService.getAll()
-    setPosts(posts)
+    const response = await PostService.getAll(limit, page)
+    const totalCount = response.headers['x-total-count']
+    setPosts(response.data)
+    setTotalPage(getPageCount(totalCount, limit))
   })
 
   useEffect(() => {
