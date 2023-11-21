@@ -10,18 +10,22 @@ import { usePost } from "./hooks/usePosts";
 import RdButton from "./components/UA/button/RdButton";
 import PostService from "./API/postService";
 import Loader from "./components/UA/loader/loader.";
+import { useFetching } from "./hooks/useFetching";
 
 
 function App() {
   const [posts, setPosts] = useState([])
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState({ sort: '', query: '' })
-  const [isPostsLoading, setIsPostsLoading] = useState(false)
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const posts = await PostService.getAll()
+    setPosts(posts)
+  })
+
   useEffect(() => {
-    console.log('UseEffect work');
     fetchPosts()
   }, [])
 
@@ -36,16 +40,6 @@ function App() {
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
   }
-
-  async function fetchPosts() {
-    setIsPostsLoading(true)
-    setTimeout(async () => {
-      const posts = await PostService.getAll()
-      setPosts(posts)
-      setIsPostsLoading(false)
-    }, 1000)
-  }
-
 
   return (
     <div className="App">
