@@ -60,6 +60,11 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
+
+      {postError &&
+        <h1 style={{ color: 'red' }}>Error happen: {postError}</h1>
+      }
+
       {isPostsLoading
         ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
           <Loader />
