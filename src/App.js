@@ -25,13 +25,6 @@ function App() {
 
   const pagesArray = usePagination(totalPage)
 
-  // let pagesArray = useMemo(() => {
-  //   const arr = usedPagination(totalPage)
-  //   console.log(arr);
-  //   return arr
-  // }, [totalPage])
-
-
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
@@ -43,7 +36,7 @@ function App() {
 
   useEffect(() => {
     fetchPosts()
-  }, [])
+  }, [page])
 
   const createPost = (newPost) => {
     setPosts([
@@ -55,6 +48,11 @@ function App() {
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
+  }
+
+  const changePage = (page) => {
+    setPage(page)
+    // fetchPosts()
   }
 
   return (
@@ -87,6 +85,17 @@ function App() {
         </div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
       }
+
+      <div className="page__wrapper">
+        {pagesArray.map(p =>
+          <span
+            onClick={() => changePage(p)}
+            className={p === page ? 'page page__current' : 'page'}
+            key={p}
+          >{p}</span>
+        )}
+      </div>
+
 
     </div>
 
