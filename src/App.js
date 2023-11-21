@@ -9,6 +9,7 @@ import MyButton from "./components/UA/button/MyButton";
 import { usePost } from "./hooks/usePosts";
 import RdButton from "./components/UA/button/RdButton";
 import PostService from "./API/postService";
+import Loader from "./components/UA/loader/loader.";
 
 
 function App() {
@@ -38,9 +39,11 @@ function App() {
 
   async function fetchPosts() {
     setIsPostsLoading(true)
-    const posts = await PostService.getAll()
-    setPosts(posts)
-    setIsPostsLoading(false)
+    setTimeout(async () => {
+      const posts = await PostService.getAll()
+      setPosts(posts)
+      setIsPostsLoading(false)
+    }, 1000)
   }
 
 
@@ -64,7 +67,9 @@ function App() {
         setFilter={setFilter}
       />
       {isPostsLoading
-        ? <h1 style={{ color: 'green' }}>SPINNER</h1>
+        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+          <Loader />
+        </div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
       }
 
