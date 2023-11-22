@@ -1,0 +1,31 @@
+.navbar {
+  height: 50px;
+  width: 100vw;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.navbar__links {
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  margin-right: 50px;
+  margin-left: auto;
+  /* list-style: none; */
+}
+
+.link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: rgb(36, 36, 97);
+  /* color: darkcyan; */
+}
+
+.link__active {
+  margin-right: 20px;
+  text-decoration: none;
+  color: red;
+  cursor: default;
+}
