@@ -12,7 +12,7 @@ import PostService from "./API/postService";
 import Loader from "./components/UA/loader/loader.";
 import { useFetching } from "./hooks/useFetching";
 import { getPageCount } from "./utils/pages";
-import { usePagination } from "./hooks/usePagination";
+import Pagination from "./components/UA/pagination/Pagination";
 
 
 function App() {
@@ -22,8 +22,6 @@ function App() {
   const [totalPage, setTotalPage] = useState(0)
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
-
-  const pagesArray = usePagination(totalPage)
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
@@ -86,15 +84,7 @@ function App() {
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
       }
 
-      <div className="page__wrapper">
-        {pagesArray.map(p =>
-          <span
-            onClick={() => changePage(p)}
-            className={p === page ? 'page page__current' : 'page'}
-            key={p}
-          >{p}</span>
-        )}
-      </div>
+      <Pagination totalPage={totalPage} page={page} changePage={changePage} />
 
 
     </div>

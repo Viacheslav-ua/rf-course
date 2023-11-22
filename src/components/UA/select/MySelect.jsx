@@ -1,4 +1,3 @@
-// import classes from './MyButton.module.css'
 
 const MySelect = ({options, defaultValue, value, onChange}) => {
   return (
