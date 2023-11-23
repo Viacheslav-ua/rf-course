@@ -9,9 +9,10 @@ const MyLink = ({children, to, ...props}) => {
     <Link
       to={to}
       style={{
-        color: match ? 'red' : 'blue',
+        color: match ? 'red' : 'white',
         textDecoration: 'none',
         cursor: 'default',
+        marginRight: '20px',
       }}
       {...props}
     >

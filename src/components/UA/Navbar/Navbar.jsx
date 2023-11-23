@@ -16,7 +16,8 @@ const Navbar = () => {
       <div className={classes.navbar__links}>
         <NavLink className={setLinkClass} to={'/about'}>About</NavLink>
         <NavLink className={setLinkClass} to={'/posts'}>Posts</NavLink>
-        <MyLink to={'/posts'}>MyyyyyLink</MyLink>
+        <MyLink to={'/'}>Home</MyLink>
+        <MyLink to={'everything'}>Everything</MyLink>
       </div>
     </nav>
   );
