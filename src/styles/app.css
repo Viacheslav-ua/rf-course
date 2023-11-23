@@ -10,6 +10,11 @@
   justify-content: center;
 }
 
+h2:first-letter,p::first-letter {
+  text-transform: uppercase;
+}
+
+
 .App {
   width: 800px;
 }
