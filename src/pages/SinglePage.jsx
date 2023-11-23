@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 
 const SinglePage = () => {
 
-  const { id, title} = (useParams());
+  const { id, title} = useParams();
 
   return (
     <div style={{fontSize: '24px'}}>

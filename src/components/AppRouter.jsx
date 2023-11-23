@@ -6,6 +6,7 @@ import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import SinglePage from "../pages/SinglePage";
 import PostNewPage from "../pages/PostNew";
+import PostIdPage from "../pages/PostIdPage";
 
 const AppRouter = () => {
   return(
@@ -14,6 +15,7 @@ const AppRouter = () => {
         <Route index element={<HomePage />} />
         <Route path="/about" element={<About />} />
         <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:id" element={<PostIdPage />} />
         <Route path="/posts/:id/:title" element={<SinglePage />} />
         <Route path="/posts/new" element={<PostNewPage />} />
         <Route path="*" element={<NotFound />} />
