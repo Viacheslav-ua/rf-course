@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import Counter from "../components/Counter";
 import ClassCounter from "../components/ClassCounter";
 import PostList from "../components/PostList";
@@ -13,6 +13,7 @@ import Loader from "../components/UA/loader/loader";
 import { useFetching } from "../hooks/useFetching";
 import { getPageCount } from "../utils/pages";
 import Pagination from "../components/UA/pagination/Pagination";
+import { useObserver } from "../hooks/useObserver";
 
 
 function Posts() {
@@ -25,12 +26,16 @@ function Posts() {
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
 
+  const lastElement = useRef()
+  
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const response = await PostService.getAll(limit, page)
     const totalCount = response.headers['x-total-count']
-    setPosts(response.data)
+    setPosts([...posts, ...response.data])
     setTotalPage(getPageCount(totalCount, limit))
   })
+
+  useObserver(lastElement, page < totalPage, isPostsLoading, () => setPage(page + 1))
 
   useEffect(() => {
     fetchPosts()
@@ -77,11 +82,13 @@ function Posts() {
         <h1 style={{ color: 'red' }}>Error happen: {postError}</h1>
       }
 
-      {isPostsLoading
-        ? <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
+      <div ref={lastElement} style={{height: 20, backgroundColor: 'red'}}></div>
+    
+      {isPostsLoading &&
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
           <Loader />
         </div>
-        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'List of posts'} />
       }
 
       <Pagination totalPage={totalPage} page={page} changePage={changePage} />
