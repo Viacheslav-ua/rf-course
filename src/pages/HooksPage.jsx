@@ -1,3 +1,4 @@
+import Hover from "../components/Hover";
 import MyButton from "../components/UA/button/MyButton";
 import MyInput from "../components/UA/input/MyInput";
 import useInput from "../hooks/useInput";
@@ -21,7 +22,10 @@ const HooksPage = () => {
           placeholder="Password"
         />
         <MyButton onClick={() => console.log(username.value, password.value)}>LOG</MyButton>
+        <hr style={{marginBottom: 15}} />
+        <Hover />
       </div>
+
     </>
   )
 }
