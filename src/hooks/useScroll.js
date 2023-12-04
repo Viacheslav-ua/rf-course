@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function useScroll(parentRef, childRef, cb) {
   const observer = useRef()
@@ -17,9 +17,12 @@ export default function useScroll(parentRef, childRef, cb) {
     }, options)
 
     observer.current.observe(childRef.current)
-
+    console.log(observer.current);
     return function() {
-      observer.current.unobserve(childRef.current)
+      if(childRef.current){
+        console.log('unmount', childRef);
+        observer.current.unobserve(childRef.current)
+      }
     }
 
   }, [cb])

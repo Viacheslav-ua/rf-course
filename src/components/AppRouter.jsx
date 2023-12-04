@@ -12,6 +12,7 @@ import LoginPage from "../pages/LoginPage";
 import Private from "../hoc/Private";
 import { AuthProvider } from "../hoc/AuthProvider";
 import HooksPage from "../pages/HooksPage";
+import HooksPageToo from "../pages/HooksPageToo";
 
 const AppRouter = () => {
   return (
@@ -23,6 +24,7 @@ const AppRouter = () => {
           <Route path="/about" element={<About />} />
           <Route path="/about-us" element={<Navigate to='/about' replace/>} />
 
+          <Route path="/hooks-too" element={<HooksPageToo />} />
           <Route path="/hooks" element={<HooksPage />} />
           <Route path="/posts" element={<Private><Posts /></Private>} />
           <Route path="/posts/:id" element={<PostIdPage />} />

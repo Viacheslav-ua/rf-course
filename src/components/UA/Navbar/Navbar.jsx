@@ -22,6 +22,7 @@ const Navbar = () => {
       <div className={classes.navbar__links}>
         <NavLink className={setLinkClass} to={'/about'}>About</NavLink>
 
+        <MyLink to={'/hooks-too'}>Hooks Too</MyLink>
         <MyLink to={'/hooks'}>Hooks</MyLink>
         <NavLink className={setLinkClass} to={'/posts'}>Posts</NavLink>
         <MyLink to={'/'}>Home</MyLink>
