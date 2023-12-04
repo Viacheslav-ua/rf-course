@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useScroll from "../hooks/useScroll";
 
 const List = () => {
@@ -8,9 +8,12 @@ const [page, setPage] = useState(1)
 const limit = 20
 const parentRef = useRef()
 const childRef = useRef()
-const intersected = useScroll(parentRef, childRef, () => fetchTodos(page, limit))
 
- function fetchTodos(page, limit) {
+const intersected = useScroll(parentRef, childRef, useCallback(() => {
+  fetchTodos(page, limit)
+}, [page, limit]))
+
+function fetchTodos(page, limit) {
   fetch(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}&_page=${page}`)
     .then(response => response.json())
     .then(json => {
@@ -18,10 +21,6 @@ const intersected = useScroll(parentRef, childRef, () => fetchTodos(page, limit)
       setPage(prev => prev + 1)
     })
 }
-
-// useEffect(() => {
-//   fetchTodos(page, limit)
-// }, [])
 
   return (
     <div ref={parentRef} style={{height: '70vh', overflow: 'auto'}}>
