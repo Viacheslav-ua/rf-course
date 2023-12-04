@@ -1,4 +1,5 @@
 import Hover from "../components/Hover";
+import List from "../components/List";
 import MyButton from "../components/UA/button/MyButton";
 import MyInput from "../components/UA/input/MyInput";
 import useInput from "../hooks/useInput";
@@ -22,8 +23,10 @@ const HooksPage = () => {
           placeholder="Password"
         />
         <MyButton onClick={() => console.log(username.value, password.value)}>LOG</MyButton>
-        <hr style={{marginBottom: 15}} />
+        <hr style={{margin: 15}} />
         <Hover />
+        <hr style={{margin: 15}} />
+        <List />
       </div>
 
     </>
