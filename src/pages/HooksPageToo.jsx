@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MyInput from "../components/UA/input/MyInput";
 import useDebounce from "../hooks/useDebounce";
+import ListQuery from "../components/ListQuery";
 
 const HooksPageToo= () => {
   const [value, setValue] = useState('')
@@ -25,6 +26,8 @@ const HooksPageToo= () => {
         value={value} 
         onChange={onChange}
         style={{ width: 300, marginRight: 50 }}/>
+
+        <ListQuery />
       </div>
 
     </>
